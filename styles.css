@@ -107,35 +107,6 @@ html, body {
   max-width: 1080px;
 }
 
-.game-charts {
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-.game-chart:nth-child(1) {
-  color: #ACEC00;
-}
-.game-chart:nth-child(2) {
-  color: #00BBD6;
-}
-.game-chart:nth-child(3) {
-  color: #BA65C9;
-}
-.game-chart:nth-child(4) {
-  color: #EF3C79;
-}
-.game-graphs {
-  padding: 16px 32px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-}
 /* TODO: Find a proper solution to have the graphs
  * not float around outside their container in IE10/11.
  * Using a browserhacks.com solution for now.
@@ -213,3 +184,34 @@ _:-ms-input-placeholder, :root .game-graph {
       -ms-flex-align: center;
           align-items: center;
 }
+
+#wideButton{
+  width: 135px;
+  min-width: initial;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+#narrowButton{
+  width: 130px;
+  min-width: initial;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.divPadding{
+  padding-left:-20px;
+}
+
+.dividerHorz{
+  width: 5px;
+  height: auto;
+  display: inline-block;
+}
+
+.dividerVert{
+  width: auto;
+  height: 5px;
+  display: inline-block;
+}
+
