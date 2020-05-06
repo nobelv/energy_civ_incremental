@@ -83,88 +83,117 @@
                     </div>
                 </div>
             </div>
+        <!-- END INTRO CONTENT -->
+        
+        <!-- GAME CONTENT -->
+
+        <!-- RESOURCE TRACKING -->
+
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col cardBG imgBG">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <h2 class="mdl-card__title-text">Gather Resources</h2>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick=gatherFood(1)>
+                                        Food
+                                    </button>
+                                    
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick=gatherWood(1)>
+                                        Wood
+                                    </button>
+                                    
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick=gatherStone(1)>
+                                        Stone
+                                    </button>
+                                </div>
+                            </div>  
+                            
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <h2 class="mdl-card__title-text">Track Resources</h2>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="divPadding">
+                                            <p>Food: <span id="food"></span>/<span id="foodCap">50</span></p>
+                                            <p>Wood: <span id="wood"></span>/<span id="woodCap">50</span></p>
+                                            <p>Stone: <span id="stone"></span>/<span id="stoneCap">50</span></p>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col cardBG imgBG">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <h2 class="mdl-card__title-text">Spend resources</h2>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick=addHuman()>
+                                        Human 
+                                    </button>
+                                    
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick=buildHouse(5)>
+                                        House
+                                    </button>
+
+                                    <button id="wideButton"
+                                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        onclick="buildStorage(50, 'wood')">
+                                        Wood Storage
+                                     </button>
+                                </div>
+                            </div>  
+                            
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <h2 class="mdl-card__title-text">Track Buildings</h2>
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="divPadding">
+                                            <p>Humans: <span id="humans"></span>/<span id="populationCap">5</span></p>
+                                            <p>Houses: <span id="houses"></span></p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mdl-cell mdl-cell--4-col">
+                    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col cardBG imgBG">
+                        <div class="mdl-grid">
+                            <h2 class="mdl-card__title-text">Requirements</h2>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <div>
+                                    You require: <text id="foodCost">5</text> food to recruit more humans.
+
+                                    <span id="noFood"></span>
+                                    <span id="maxPopCap"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- GAME CONTENT -->
-            <div id="resourceTracker">
-                <div class="mdl-grid">
-                        <div 
-                        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col cardBG imgBG">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Gathered Resources</h2>
-                        </div>
-                            <div class="mdl-card__supporting-text">
-                                <p>Food: <span id="food"></span></p>
-                                <p>Wood: <span id="wood"></span></p>
-                                <p>Stone: <span id="stone"></span></p>                         
-                            </div>
-                        </div>
 
-                        <div 
-                        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col cardBG imgBG">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Civilization Size</h2>
-                        </div>
-                            <div class="mdl-card__supporting-text">
-                                <p>Humans: <span id="humans"></span></p>                   
-                            </div>
-                        </div>
-
-                </div>
-            </div>
-
-            <div id="resourceClicker">
-                <div class="mdl-grid">
-                        <div 
-                        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col cardBG imgBG">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Gather some resources</h2>
-                        </div>
-                        <button 
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            onclick=gatherFood(1)>
-                            Gather Food
-                        </button>
-
-                        <button 
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            onclick=gatherWood(1)>
-                            Gather Wood
-                        </button>
-
-                        <button 
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            onclick=gatherStone(1)>
-                            Gather Stone
-                        </button>
-                        </div>
-                </div>
-            </div>
-
-            <div id="resourceSpender">
-                <div class="mdl-grid">
-                        <div 
-                        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col cardBG imgBG">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Spend Resources</h2>
-                        </div>
-                        <button 
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            onclick=addHuman()>
-                            Add a human
-                        </button>
-                        </div>
-
-                        <div 
-                        class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col cardBG imgBG">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Requirements</h2>
-                        </div>
-                            You require: <text id="foodCost">5</text> food to recruit more humans.
-                            <span id="noFood"></span>
-                        </div>
-                </div>
-            </div>
-
+        </main>
 
 
     <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
