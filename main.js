@@ -5,7 +5,8 @@ function saveGame(){
         stone:stone,
         food:food,
         humans:humans,
-        house:house
+        houses:houses,
+        populationCap:populationCap
     };
     localStorage.setItem("gameSaver",JSON.stringify(saveVar)); 
 };
@@ -14,15 +15,21 @@ function loadGame(){
     let savegame = JSON.parse(localStorage.getItem("gameSaver")); 
     
     if(savegame != null){
+
         if (typeof savegame.wood !== "undefined") wood = savegame.wood; 
         if (typeof savegame.stone !== "undefined") stone = savegame.stone;
         if (typeof savegame.food !== "undefined") food = savegame.food;
         if (typeof savegame.humans !== "undefined") humans = savegame.humans;
+        if (typeof savegame.houses !== "undefined") houses = savegame.houses;
+        if (typeof savegame.populationCap !== "undefined") populationCap = savegame.populationCap;
+
     
         document.getElementById('wood').innerHTML = savegame.wood;
         document.getElementById('stone').innerHTML = savegame.stone;
         document.getElementById('food').innerHTML = savegame.food;
         document.getElementById('humans').innerHTML = savegame.humans;  
+        document.getElementById('houses').innerHTML = savegame.houses;  
+        document.getElementById('populationCap').innerHTML = savegame.populationCap;
     }    
 };
 
@@ -37,6 +44,8 @@ function deleteSave(){
         document.getElementById('stone').innerHTML = 0;
         document.getElementById('food').innerHTML = 0;
         document.getElementById('humans').innerHTML = 0;
+        document.getElementById('houses').innerHTML = 0;
+        document.getElementById('populationCap').innerHTML = 0;
 
         // reset costs
 
@@ -46,6 +55,8 @@ function deleteSave(){
         stone = 0;
         food = 0;
         humans = 0;
+        houses = 0;
+        populationCap = 0;
         nextCost = 5;
         
         // reset the game
