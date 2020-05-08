@@ -7,7 +7,9 @@ let stone = 0;
 let humans = 0;
 
 let houses = 0;
-let storage = 0;
+let foodStorage = 0;
+let woodStorage = 0;
+let stoneStorage = 0;
 
 let populationCap = 5;
 let foodCap = 50;
@@ -25,6 +27,9 @@ function updateResources(){
     
     // buildings
     document.getElementById('houses').innerHTML = houses;
+    document.getElementById('foodStorage').innerHTML = foodStorage;
+    document.getElementById('woodStorage').innerHTML = woodStorage;
+    document.getElementById('stoneStorage').innerHTML = stoneStorage;
 
     // caps
     document.getElementById('foodCap').innerHTML = foodCap;

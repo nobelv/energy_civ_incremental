@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='description' content=''>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0'>
+    <title>Civilization Clicker</title>
+
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'>
+    <link rel='stylesheet' href='https://code.getmdl.io/1.3.0/material.indigo-light_blue.min.css'/>  
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link rel='stylesheet' href='mdl_styles.css'>
+    <link rel='stylesheet' href='stylesheet.css'>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script> 
+</head>
+
+<body>
+
+    <!-- GAME TITLE -->
+    <div class='game-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header'>
+        <header class='game-header mdl-layout__header mdl-color--indigo-900 mdl-color-text--white-600'>
+            <div class='mdl-layout__header-row'>
+                <span class='mdl-layout-title'>Civilization Clicker</span>
+            </div>
+        </header>
+    
+
+        <!-- CORNER W/ LOGO -->
+        <div class='game-drawer mdl-layout__drawer mdl-color--indigo-900 mdl-color-text--indigo-50'>
+            <header class='game-drawer-header'>
+                <div class='mdl-layout-spacer'></div>
+                <img src='images/logo.png' class='game-logo'>
+            </header>
+
+        <!-- NAVIGATION -->
+            <nav class='game-navigation mdl-navigation mdl-color--indigo-800'>
+                <a class='mdl-navigation__link'><i class='mdl-color-text--indigo-400 material-icons'
+                        role='presentation'>home</i>Home</a>
+                <a class='mdl-navigation__link' onclick=saveGame()><i class='mdl-color-text--indigo-400 material-icons'
+                    role='presentation'>save</i>Save</a>
+                <a class='mdl-navigation__link' onclick=deleteSave()><i class='mdl-color-text--indigo-400 material-icons'
+                        role='presentation'>remove_circle</i>Delete Save</a>
+            </nav>
+        </div>
+
+        <!-- INTRO CONTENT -->
+        <main class='mdl-layout__content mdl-color--white-50'>
+            <div id='welcomeMessage'>
+                <div class='mdl-grid center-items'>
+                    <div
+                        class='mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet cardBG imgBG mdl-color--grey-100'>
+                        <div class='mdl-card__title'>
+                            <h2 class='mdl-card__title-text'>Start your Civilization</h2>
+                        </div>
+                        <div class='mdl-card__supporting-text'>
+                            <p>You are at the beginning of an amazing journey where you'll be creating a civilization of your own. 
+                               The choices you can make along this journey will impact your progression in different ways.</p>
+                            <p>Your first choice will be which period you want to start your civilization in..</p>
+                                                        
+                            <button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'
+                                onclick='welcome();'>
+                                Create Primitive Civilization
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        class='mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet cardBG imgBG mdl-color--grey-100'>
+                        <div class='mdl-card__title'>
+                            <h2 class='mdl-card__title-text'>Civilization Starting Time</h2>
+                        </div>
+                        <div class='mdl-card__supporting-text'>
+                            <p>As you progress you'll be able to advance through different periods and unlock starting from certain points.
+                               We also need to develop them of course, so consider this a WIP. In the future you will be able to read about the 
+                               different periods in which you can start.</p>
+                        
+                            <p>Currently you can only start in the primitive period.</p>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- END INTRO CONTENT -->
+       
+        <!-- GAME CONTENT -->
+        <div class='clicker'>
+            <div class='clicker__button-area'>
+                <button id='wideButton'
+                    class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
+                    onclick=gatherFood(1)>
+                    Food
+                </button>
+                
+                <button id='wideButton'
+                    class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
+                    onclick=gatherWood(1)>
+                    Wood
+                </button>
+                
+                <button id='wideButton'
+                    class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
+                    onclick=gatherStone(1)>
+                    Stone
+                </button>     
+            </div>       
+        </div>
+
+        <div class='trackers'>
+            <h3>Track Basic Resources</h3>
+
+            <div class='trackers__text_area'>
+                <p>Food: <span id='food'>0</span>/<span id='foodCap'>50</span></p>
+                <p>Wood: <span id='wood'>0</span>/<span id='woodCap'>50</span></p>
+                <p>Stone: <span id='stone'>0</span>/<span id='stoneCap'>50</span></p> 
+            </div>
+        </div>
+
+        Expand Settlement
+
+        <div class='buyables'>
+            <!-- <div class="buyables__section-title">
+                Expand Settlement
+            </div> -->
+
+            <div class='buyable'>
+                <div class='buyable__text'>
+                    <div class='buyable__title'>
+                        <span class='buyable__title-text'>
+                            Human
+                        </span>
+
+                    </div>
+                    <div class='buyable__description'>Recruit an additional worker.</div>
+                    <div class='buyable__effect'>Harvest 1 resource of choice.</div>
+                </div>
+
+                <span class='buyable__title-price'>
+                    <span id='foodCost'>5</span> Food
+                </span>
+
+                <div class='buyable__button-area'>
+                    <button id='wideButton'
+                        class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'
+                        onclick=addHuman()>
+                        Recruit 
+                    </button>
+                </div>
+            </div>
+
+            <div class='buyable'>
+                <div class='buyable__text'>
+                    <div class='buyable__title'>
+                        <span class='buyable__title-text'>
+                            House
+                        </span>
+                        <span class='buyable__title-price'>25 wood and 25 stone.</span>
+                    </div>
+                    <div class='buyable__description'>Build your people a home.</div>
+                    <div class='buyable__effect'>Expand your population cap by 5.</div>
+                </div>
+
+                <div class='buyable__button-area'>
+                    <button id="wideButton"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        onclick=buildHouse(5)>
+                        Build
+                    </button>
+                </div>
+            </div>
+
+        </div>
+     
+        <div class='trackers'>
+            <h3>Civilization Size</h3>
+
+            <div class='trackers__text_area'>
+                <p>Humans: <span id='humans'>0</span>/<span id='populationCap'>5</span></p>
+                <p>Houses: <span id='houses'>0</span></p>
+            </div>
+
+            <h3>Storage buildings</h3>
+            <div class='trackers__text_area'>
+                <p>Food Piles: <span id='foodStorage'>0</span></p>
+                <p>Stone Piles: <span id='woodStorage'>0</span></p>
+                <p>Wood Piles: <span id='stoneStorage'>0</span></p>
+            </div>
+        </div>
+
+
+        <!-- END GAME CONTENT -->
+        </main>
+
+    </div>
+    <script src='https://code.getmdl.io/1.3.0/material.min.js'></script>
+    <script src='resources.js'></script>
+    <script src='gameplay.js'></script>
+    <script src='main.js'></script>
+</body>
+
+</html>

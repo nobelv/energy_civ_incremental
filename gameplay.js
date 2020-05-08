@@ -34,7 +34,7 @@ function gatherStone(number){
 
 // resource spending
 function addHuman(){
-    let foodCost = 5;
+    let foodCost = Math.floor(5 * Math.pow(1.1, humans));
 
     if(food >= foodCost && populationCap > humans){
         // reset message
@@ -43,25 +43,24 @@ function addHuman(){
 
         humans = humans + 1;
         food = food - foodCost;
+
     }
     else{ // display error message
-        if(food >= foodCost){
+        if(foodCost > food){
             document.getElementById('noFood').innerHTML='Not enough food!';
         }
-        if(populationCap > humans){
+        if(populationCap == humans){
             document.getElementById('maxPopCap').innerHTML='Not enough houses!';
         }
     }
 
-    if(humans % 2){
-        nextCost = Math.floor(5 * Math.pow(1.1, humans));
-        document.getElementById('foodCost').innerHTML = nextCost;
-    }
+    nextCost = Math.floor(5 * Math.pow(1.1, humans));
+    document.getElementById('foodCost').innerHTML = nextCost;
     updateResources()
 };
 
 function buildHouse(numBeds){
-    let houseCost = 10;
+    let houseCost = 25;
 
     if ((stone) && (wood) >= houseCost){
 
@@ -78,19 +77,24 @@ function buildHouse(numBeds){
 };
 
 function buildStorage(storageAmt, type){
-    let storageCost = 20;
+    let storageCost = 30;
 
     if ((stone) && (wood) >= storageCost){
-        storage = storage + 1;
-
+ 
         wood = wood - storageCost;
         stone = stone - storageCost;
-
+        
+        if(type == "food"){
+            foodCap = foodCap + storageAmt;
+            foodStorage = foodStorage + 1;
+        }
         if(type == "wood"){
             woodCap = woodCap + storageAmt;
+            woodStorage = woodStorage + 1;
         }
         if(type == "stone"){
             stoneCap = stoneCap + storageAmt;
+            stoneStorage = stoneStorage + 1;
         }
     }
     updateResources()

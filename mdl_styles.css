@@ -185,33 +185,3 @@ _:-ms-input-placeholder, :root .game-graph {
           align-items: center;
 }
 
-#wideButton{
-  width: 135px;
-  min-width: initial;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-
-#narrowButton{
-  width: 130px;
-  min-width: initial;
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-
-.divPadding{
-  padding-left:-20px;
-}
-
-.dividerHorz{
-  width: 5px;
-  height: auto;
-  display: inline-block;
-}
-
-.dividerVert{
-  width: auto;
-  height: 5px;
-  display: inline-block;
-}
-
