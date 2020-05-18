@@ -2,103 +2,133 @@
 
 // resource gathering
 function gatherFood(number){
-    if(foodCap > food){
-        food = food + number;
+    if(caps.foodCap > resources.food){
+        resources.food = resources.food + number;
     }
-    if(food > foodCap){
-        food = foodCap;
+    if(resources.food > caps.foodCap){
+        resources.food = caps.foodCap;
     }
-    updateResources()
+    updateInnerHTML();
 };
 
+
 function gatherWood(number){
-    if(woodCap > wood){
-        wood = wood + number;
+    if(caps.woodCap > resources.wood){
+        resources.wood = resources.wood + number;
     }
-    if(wood > woodCap){
-        wood = woodCap;
+    if(resources.wood > caps.woodCap){
+        resources.wood = caps.woodCap;
     }
-    updateResources()      
+    updateInnerHTML(); 
 };
 
 function gatherStone(number){
-    if(stoneCap > stone){
-        stone = stone + number;
+    if(caps.stoneCap > resources.stone){
+        resources.stone = resources.stone + number;
     }
-    if(stone > stoneCap){
-        stone = stoneCap;
+    if(resources.stone > caps.stoneCap){
+        resources.stone = caps.stoneCap;
     }
-    updateResources()
+    updateInnerHTML();
 };
 
-
-// resource spending
-function addHuman(){
-    let foodCost = 5;
-
-    if(food >= foodCost && populationCap > humans){
-        // reset message
-        document.getElementById('noFood').innerHTML='';
-        document.getElementById('maxPopCap').innerHTML='';
-
-        humans = humans + 1;
-        food = food - foodCost;
+// resource generator
+class ResourceGenerator{
+    constructor(name, basePrice, resourceType, numPurchase){
+        this.name = name;
+        this.basePrice = basePrice;
+        this.resourceType = resourceType;
+        this.numPurchase = numPurchase;
+        this.nextPrice = basePrice;
     }
-    else{ // display error message
-        if(food >= foodCost){
-            document.getElementById('noFood').innerHTML='Not enough food!';
+
+    pickResource(){
+        var capMapResult = capMapping[this.name];
+
+        var resourceInfo = {
+            numResource: resources[this.resourceType],
+            capResource: caps[capMapResult]
+        };
+        return resourceInfo;
+    }
+
+    spendResource(){
+        resources[this.resourceType] -= this.nextPrice;
+    }
+
+    nextPriceCalc(){
+        this.nextPrice = Math.floor(this.nextPrice * Math.pow(1.05, resourceGens[this.name]));
+        document.getElementById('foodCost').innerHTML = this.nextPrice;
+    }
+
+    purchase(){
+        var get_resource = this.pickResource();
+
+        if(get_resource.numResource >= this.nextPrice && get_resource.capResource > resourceGens[this.name]){
+            resourceGens[this.name] += this.numPurchase;
+            this.spendResource();
+            this.nextPriceCalc();
+            updateInnerHTML();
         }
-        if(populationCap > humans){
-            document.getElementById('maxPopCap').innerHTML='Not enough houses!';
-        }
-    }
-
-    if(humans % 2){
-        nextCost = Math.floor(5 * Math.pow(1.1, humans));
-        document.getElementById('foodCost').innerHTML = nextCost;
-    }
-    updateResources()
-};
-
-function buildHouse(numBeds){
-    let houseCost = 10;
-
-    if ((stone) && (wood) >= houseCost){
-
-        houses = houses + 1;
-        populationCap = populationCap + numBeds;
-
-        wood = wood - houseCost;
-        stone = stone - houseCost;
-
-        // update values
-        updateResources()
-
-    }
-};
-
-function buildStorage(storageAmt, type){
-    let storageCost = 20;
-
-    if ((stone) && (wood) >= storageCost){
-        storage = storage + 1;
-
-        wood = wood - storageCost;
-        stone = stone - storageCost;
-
-        if(type == "wood"){
-            woodCap = woodCap + storageAmt;
-        }
-        if(type == "stone"){
-            stoneCap = stoneCap + storageAmt;
+        else{
+            console.log('not enough resources');
         }
     }
-    updateResources()
-};
+}
+
+
+class ResourceSpender{
+    constructor(name, priceFood, priceWood, priceStone, priceGrowth, numPurchase){
+        this.name = name;
+        this.priceFood = priceFood;
+        this.priceWood =  priceWood;
+        this.priceStone = priceStone;
+        this.priceGrowth =  priceGrowth; // 0 = off, 1 = on
+        this.numPurchase = numPurchase;
+    }
+    
+    spendResource(){
+        resources['food'] -= this.priceFood;
+        resources['wood'] -= this.priceWood;
+        resources['stone'] -= this.priceStone;
+    }
+    
+    purchase(){
+        var canPurchase = 1;
+        
+        if (this.priceFood > resources['food']){
+            canPurchase = 0;
+        }
+        if (this.priceWood > resources['wood']){
+            canPurchase = 0;
+        }
+        if (this.priceStone > resources['stone']){
+            canPurchase = 0;
+        }
+        if (canPurchase == 1){
+            this.spendResource();
+            resourceSpenders[this.name] += this.numPurchase;
+            updateInnerHTML();
+        }
+        else{
+            console.log('not enough resources');
+        }
+        calculateCaps();
+    }
+}
+
+buildHuman = new ResourceGenerator('humans', '5', 'food', 1);
+buildHouse = new ResourceSpender('houses', 0, 25, 25, 0, 1);
+buildFoodStorage = new ResourceSpender('foodStorage', 0, 30, 30, 0, 1);
+buildWoodStorage = new ResourceSpender('woodStorage', 0, 30, 30, 0, 1);
+buildStoneStorage = new ResourceSpender('stoneStorage', 0, 30, 30, 0, 1);
+
 
 //game ticks
 window.setInterval(function(){
-    gatherFood(humans);
-    gatherWood(humans);
-    gatherStone(humans);
-    }, 3000);
+    gatherFood(resourceGens.humans);
+    gatherWood(resourceGens.humans);
+    gatherStone(resourceGens.humans);
+    calculateCaps();
+    updateInnerHTML();
+    }, 1000);
